@@ -38,4 +38,6 @@ ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 ARG NL_FILE
 ADD $NL_FILE /
 
+ENV LC_ALL=C.UTF-8
+
 CMD ["sh"]
