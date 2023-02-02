@@ -21,24 +21,31 @@ These instructions assume Ubuntu 22.04.
 
 ### Building
 
-First a docker image is built and then converted to singularity.
-The workflow is encoded in Makefile:
+First a docker image is built and then converted to a singularity image.
+Building the nlrx dependencies takes some time (~1 hour).
+The workflow is encoded in Makefile (no sudo needed):
 
     make
 
-This produces `nlrx_6.3.0.sif` to be transferred to lumi:
+This produces `nlrx_6.3.0.sif` to be transferred to LUMI:
 
     rsync -v nlrx_6.3.0.sif lumi:...
 
 
 ## Running image on LUMI
 
-Use working directory under `/scratch/project_...`.
+* Use working directory under scratch
 
-Copy the example job script (`submit.sh`)
-and edit the job options (`#SBATCH ...`)
-and the file paths to the image file (`SIF`) and R script (`RSCRIPT`).
+      cd /scratch/project_...
 
-The rest of the script should work without modification.
+* Copy the example job script (`submit.sh`)
 
-Submit the job using `sbatch submit.sh`.
+  * Edit the file paths to the image file (`SIF`) and R script (`RSCRIPT`)
+
+  * Edit the job options (`#SBATCH ...`)
+
+  * The rest of the script should work without modification.
+
+* Submit the job
+
+      sbatch submit.sh
