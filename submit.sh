@@ -27,4 +27,4 @@ mkdir -p $TMP_HOME/.java/.userPrefs
 trap "rm -r $TMP_HOME/.java $TMP_HOME/.netlogo; rmdir $TMP_HOME" EXIT
 
 # Run nlrx
-singularity exec --home $TMP_HOME --bind $PWD --env LC_ALL=C.UTF-8 $SIF Rscript $RSCRIPT
+singularity exec --home $TMP_HOME --bind $PWD $SIF Rscript $RSCRIPT
