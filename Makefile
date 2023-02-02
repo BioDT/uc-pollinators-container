@@ -1,18 +1,15 @@
-.PHONY: all
-
-NL_VERSION=6.3.0
-
-all: nlrx_${NL_VERSION}.sif
+nlrx_6.3.0.sif: %.sif: %.tar
 
 
-nlrx_${NL_VERSION}.sif: nlrx_${NL_VERSION}.tar
+%.sif: %.tar
 	singularity build $@ docker-archive://$<
 
 
-nlrx_${NL_VERSION}.tar: NetLogo-${NL_VERSION}-64.tgz
-	podman build --format docker -t $(@:.tar=:latest) .
+nlrx_%.tar: NetLogo-%-64.tgz Dockerfile
+	podman build --format docker -t $(@:.tar=:latest) --build-arg NL_FILE=$< .
+	rm -f $@
 	podman save $(@:.tar=:latest) -o $@
 
 
-NetLogo-${NL_VERSION}-%.tgz:
-	wget https://ccl.northwestern.edu/netlogo/${NL_VERSION}/$@
+NetLogo%.tgz:
+	wget https://ccl.northwestern.edu/netlogo/$(word 2, $(subst -, ,$@))/$@

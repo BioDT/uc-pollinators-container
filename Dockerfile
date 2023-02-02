@@ -36,6 +36,7 @@ RUN apt-get install -qy \
 ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 
 # Add NetLogo
-ADD NetLogo-6.3.0-64.tgz /
+ARG NL_FILE
+ADD $NL_FILE /
 
 CMD ["sh"]
