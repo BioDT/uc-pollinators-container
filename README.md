@@ -24,11 +24,11 @@ This produces `netlogo_6.3.0.tar` to be transferred to LUMI:
     rsync -v netlogo_6.3.0.tar lumi:...
 
 
-### Building the parent image
+### Building the final image
 
-Build the parent image on LUMI.
+The build script builds final container with R, `nlrx`, and other required packages:
 
-TOD
+    ./build.sh
 
 
 ## Running image on LUMI
