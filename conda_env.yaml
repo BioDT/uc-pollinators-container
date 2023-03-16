@@ -1,0 +1,39 @@
+name: beehave_env
+channels:
+ - conda-forge
+dependencies:
+ - r-base=4.2
+ - r-tidyverse
+ - r-sf
+ - r-terra
+ - r-dplyr
+ - r-lubridate
+ - r-jsonlite
+ # Conda-available dependencies of rdwd
+ - r-berryfunctions
+ - r-pbapply
+ # Conda-available dependencies of nlrx
+ - r-xml
+ - r-lhs
+ - r-furrr
+ - r-gensa
+ - r-genalg
+ - r-raster
+ - r-igraph
+ - r-progressr
+ # Conda-available dependencies of sensitivity
+ # (which is a non-conda-available dependency of nlrx)
+ - r-rcpp
+ - r-rcpparmadillo
+ - r-boot
+ - r-numbers
+ - r-foreach
+ - r-dtwclust
+ # Conda-available dependencies of easyabc/abc
+ # (which is a non-conda-available dependency of nlrx)
+ - r-pls
+ - r-mnormt
+ - r-tensora
+ - r-nnet
+ - r-quantreg
+ - r-locfit

@@ -2,3 +2,5 @@
 *.gz
 *.tgz
 *.sif
+config.yaml
+beehave_env
