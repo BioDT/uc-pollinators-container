@@ -1,43 +1,18 @@
-FROM docker.io/ubuntu:22.04
+FROM docker.io/opensuse/leap:15.3
 
-ENV DEBIAN_FRONTEND=noninteractive
+# Container wrapper seems to mask various standard paths so
+# we install everything under /my
 
-RUN apt-get update -qy && \
-    apt-get install -qy \
-        gpg \
-        ca-certificates \
-        software-properties-common \
-        && \
-    apt-get clean
-
-# Add repository for newer R
-# Install R and dependencies for nlrx
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && \
-    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" && \
-    apt-get update -qy && \
-    apt-get install -qy \
-        r-base-dev \
-        libxml2-dev \
-        libgdal-dev \
-        libudunits2-dev \
-        && \
-    apt-get clean
-
-# Install nlrx
-RUN Rscript -e 'install.packages("nlrx", repos="https://cloud.r-project.org")'
-
-# Install java
-RUN apt-get install -qy \
-        openjdk-17-jre-headless \
-        && \
-    apt-get clean
-
-ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+# Add java
+ARG JAVA_FILE
+ADD $JAVA_FILE /my/
 
 # Add NetLogo
-ARG NL_FILE
-ADD $NL_FILE /
+ARG NETLOGO_FILE
+ADD $NETLOGO_FILE /my/
 
-ENV LC_ALL=C.UTF-8
+ENV JAVA_HOME=/my/jdk-19.0.2 \
+    NETLOGO_HOME="/my/NetLogo 6.3.0" \
+    LC_ALL=C.UTF-8
 
 CMD ["sh"]
