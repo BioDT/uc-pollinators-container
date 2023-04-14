@@ -1,4 +1,4 @@
-name: beehave_env
+name: beehave
 channels:
  - conda-forge
 dependencies:

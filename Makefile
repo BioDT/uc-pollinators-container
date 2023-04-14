@@ -1,15 +1,20 @@
-all: netlogo_6.3.0.tar
+SIF=netlogo.sif
+IMAGE=netlogo
+TAG=test
+NETLOGO_VERSION=6.3.0
 
-netlogo_%.tar: Dockerfile NetLogo-%-64.tgz jdk.tar.gz
-	podman build --format docker -t $(@:.tar=:latest) \
+
+build: Dockerfile NetLogo-${NETLOGO_VERSION}-64.tgz
+	podman build --format docker \
 		--build-arg NETLOGO_FILE=$(word 2, $^) \
-		--build-arg JAVA_FILE=$(word 3, $^) \
+		-t ${IMAGE}:${TAG} \
 		.
-	rm -f $@
-	podman save $(@:.tar=:latest) -o $@
+
+singularity:
+	rm -f $(SIF) $(SIF:.sif=.tar)
+	podman save ${IMAGE}:${TAG} -o $(SIF:.sif=.tar)
+	singularity build $(SIF) docker-archive://$(SIF:.sif=.tar)
+	rm -f $(SIF:.sif=.tar)
 
 NetLogo%.tgz:
 	wget https://ccl.northwestern.edu/netlogo/$(word 2, $(subst -, ,$@))/$@
-
-jdk.tar.gz:
-	wget https://download.java.net/java/GA/jdk19.0.2/fdb695a9d9064ad6b064dc6df578380c/7/GPL/openjdk-19.0.2_linux-x64_bin.tar.gz -O $@
