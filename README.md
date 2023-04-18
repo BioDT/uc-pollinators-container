@@ -6,9 +6,9 @@
 
 Pull the pre-built image on LUMI:
 ```bash
-singularity pull --docker-login beehave.sif docker://ghcr.io/biodt/beehave:0.3.1
+singularity pull --docker-login docker://ghcr.io/biodt/beehave:0.3.1
 ```
-This creates singularity image file `beehave.sif`.
+This creates singularity image file `beehave_0.3.1.sif`.
 
 Note that the image is for now private, which means that login is required.
 Follow [these instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic)
