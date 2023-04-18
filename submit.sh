@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=00:10:00
-#SBATCH --account=project_....
+#SBATCH --account=project_465000357
 
 # Use correct file paths here
 SIF="nlrx_6.3.0.sif"
