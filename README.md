@@ -6,7 +6,7 @@
 
 Pull the pre-built image on LUMI:
 ```bash
-singularity pull --docker-login beehave.sif docker://ghcr.io/biodt/beehave:0.3.0
+singularity pull --docker-login beehave.sif docker://ghcr.io/biodt/beehave:0.3.1
 ```
 This creates singularity image file `beehave.sif`.
 
