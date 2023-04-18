@@ -7,7 +7,7 @@
 #SBATCH --account=project_465000357
 
 # Use correct file paths here
-SIF="nlrx_6.3.0.sif"
+SIF="beehave.sif"
 RSCRIPT="nlrx_script.R"
 
 ####################################
