@@ -1,14 +1,22 @@
-SIF=netlogo.sif
-IMAGE=netlogo
-TAG=test
+IMAGE_ROOT?=localhost
+IMAGE=beehave
+SIF=${IMAGE}.sif
+TAG=0.3.0
 NETLOGO_VERSION=6.3.0
+JAVA_VERSION=17
+R_VERSION=4.2
 
 
 build: Dockerfile NetLogo-${NETLOGO_VERSION}-64.tgz
 	podman build --format docker \
+		--label "org.opencontainers.image.source=https://github.com/BioDT/uc-beehave-singularity-for-lumi" \
+		--label "org.opencontainers.image.description=BEEHAVE environment with NetLogo ${NETLOGO_VERSION}, OpenJDK ${JAVA_VERSION}, R ${R_VERSION}" \
 		--build-arg NETLOGO_FILE=$(word 2, $^) \
-		-t ${IMAGE}:${TAG} \
+		-t ${IMAGE_ROOT}/${IMAGE}:${TAG} \
 		.
+
+push:
+	podman push ${IMAGE_ROOT}/${IMAGE}:${TAG}
 
 singularity:
 	rm -f $(SIF) $(SIF:.sif=.tar)
