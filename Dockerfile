@@ -31,8 +31,10 @@ RUN curl https://repo.anaconda.com/miniconda/Miniconda3-$CONDA_VERSION-Linux-x86
     $CONDA_HOME/bin/conda clean -afy
 
 # Install conda-available R packages
+ARG R_VERSION
 ADD conda_env.yaml /tmp/
 RUN . $CONDA_HOME/etc/profile.d/conda.sh && \
+    sed -i "s/r-base.*/r-base=$R_VERSION/g" /tmp/conda_env.yaml && \
     conda env create -f /tmp/conda_env.yaml -p $CONDA_HOME/envs/$CONDA_ENV && \
     $CONDA_HOME/bin/conda clean -afy
 
@@ -54,14 +56,16 @@ RUN find -L $CONDA_HOME/ -type f -name '*.a' -delete && \
 FROM base
 
 # Java
+ARG JAVA_VERSION
 RUN zypper refresh && \
     zypper --non-interactive install \
-        java-17-openjdk-headless \
+        java-$JAVA_VERSION-openjdk-headless \
         && \
     zypper clean --all
 
 # NetLogo
 ARG NETLOGO_FILE
+ARG NETLOGO_VERSION
 ADD $NETLOGO_FILE /
 
 # Conda
@@ -69,8 +73,8 @@ ARG CONDA_HOME
 ARG CONDA_ENV
 COPY --from=conda $CONDA_HOME/ $CONDA_HOME/
 
-ENV JAVA_HOME=/usr/lib64/jvm/java-17-openjdk-17 \
-    NETLOGO_HOME="/NetLogo 6.3.0" \
+ENV JAVA_HOME=/usr/lib64/jvm/java-$JAVA_VERSION-openjdk-$JAVA_VERSION \
+    NETLOGO_HOME="/NetLogo $NETLOGO_VERSION" \
     CONDA_HOME=$CONDA_HOME \
     PATH=$CONDA_HOME/envs/$CONDA_ENV/bin:$PATH \
     LC_ALL=C.UTF-8

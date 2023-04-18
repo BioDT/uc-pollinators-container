@@ -1,8 +1,10 @@
 name: beehave
 channels:
  - conda-forge
+ - nodefaults
 dependencies:
- - r-base=4.2
+ # The version of r-base will be changed in Dockerfile
+ - r-base
  - r-tidyverse
  - r-sf
  - r-terra
