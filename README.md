@@ -15,24 +15,9 @@ Follow [these instructions](https://docs.github.com/en/authentication/keeping-yo
 and create a classic personal access token with scope 'read:packages'.
 Then, use your GitHub username and the created token in the login prompt of `singularity pull`.
 
-### Running the image on LUMI
+### Running the container on LUMI
 
-* Use working directory under scratch
-
-      cd /scratch/project_...
-
-* Copy the example job script (`submit.sh`)
-
-  * Edit the file paths to the image file (`SIF`) and R script (`RSCRIPT`)
-
-  * Edit the job options (`#SBATCH ...`)
-
-  * The rest of the script should work without modification.
-
-* Submit the job
-
-      sbatch submit.sh
-
+See [these instructions](https://github.com/BioDT/uc-beehave-execution-scripts).
 
 ## Advanced: Building a new image
 
