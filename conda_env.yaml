@@ -11,6 +11,7 @@ dependencies:
  - r-dplyr
  - r-lubridate
  - r-jsonlite
+ - r-foreign
  # Conda-available dependencies of rdwd
  - r-berryfunctions
  - r-pbapply
