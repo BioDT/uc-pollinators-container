@@ -44,6 +44,20 @@ RUN . $CONDA_HOME/etc/profile.d/conda.sh && \
     conda activate $CONDA_ENV && \
     bash /tmp/post-install.sh
 
+# tar for updating rdwd
+RUN zypper refresh && \
+    zypper --non-interactive install \
+        tar \
+        gzip \
+        && \
+    zypper clean --all
+
+# Update rdwd
+RUN . $CONDA_HOME/etc/profile.d/conda.sh && \
+    conda activate $CONDA_ENV  && \
+    Rscript -e 'install.packages("remotes", repos="https://cloud.r-project.org")' && \
+    Rscript -e 'library(rdwd); updateRdwd()'
+
 # Clean files not needed runtime
 RUN find -L $CONDA_HOME/ -type f -name '*.a' -delete && \
     find -L $CONDA_HOME/ -type f -name '*.js.map' -delete && \
