@@ -73,6 +73,13 @@ ARG CONDA_HOME
 ARG CONDA_ENV
 COPY --from=conda $CONDA_HOME/envs/$CONDA_ENV/ $CONDA_HOME/envs/$CONDA_ENV/
 
+# unzip for rdwd
+RUN zypper refresh && \
+    zypper --non-interactive install \
+        unzip \
+        && \
+    zypper clean --all
+
 ENV JAVA_HOME=/usr/lib64/jvm/java-$JAVA_VERSION-openjdk-$JAVA_VERSION \
     NETLOGO_HOME="/NetLogo $NETLOGO_VERSION" \
     NETLOGO_VERSION=$NETLOGO_VERSION \
