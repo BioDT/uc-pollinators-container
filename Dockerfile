@@ -8,10 +8,18 @@ ARG CONDA_VERSION=py310_23.1.0-1
 #########################################
 FROM docker.io/opensuse/leap:15.4 AS base
 
-# Install `which`, which R depends on
+# Install general utilities:
+#   - R depends on which
+#   - rdwd update needs on tar, gzip
+#   - R help needs less
+#   - rdwd needs unzip
 RUN zypper refresh && \
     zypper --non-interactive install \
         which \
+        tar \
+        gzip \
+        less \
+        unzip \
         && \
     zypper clean --all
 
@@ -43,14 +51,6 @@ ADD post-install.sh /tmp/
 RUN . $CONDA_HOME/etc/profile.d/conda.sh && \
     conda activate $CONDA_ENV && \
     bash /tmp/post-install.sh
-
-# tar for updating rdwd
-RUN zypper refresh && \
-    zypper --non-interactive install \
-        tar \
-        gzip \
-        && \
-    zypper clean --all
 
 # Update rdwd
 RUN . $CONDA_HOME/etc/profile.d/conda.sh && \
@@ -86,13 +86,6 @@ ADD $NETLOGO_FILE /
 ARG CONDA_HOME
 ARG CONDA_ENV
 COPY --from=conda $CONDA_HOME/envs/$CONDA_ENV/ $CONDA_HOME/envs/$CONDA_ENV/
-
-# unzip for rdwd
-RUN zypper refresh && \
-    zypper --non-interactive install \
-        unzip \
-        && \
-    zypper clean --all
 
 ENV JAVA_HOME=/usr/lib64/jvm/java-$JAVA_VERSION-openjdk-$JAVA_VERSION \
     NETLOGO_HOME="/NetLogo $NETLOGO_VERSION" \
