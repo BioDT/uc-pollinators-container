@@ -9,7 +9,7 @@ R_VERSION=4.2
 
 build: Dockerfile NetLogo-${NETLOGO_VERSION}-64.tgz
 	podman build --format docker \
-		--label "org.opencontainers.image.source=https://github.com/BioDT/uc-beehave-singularity-for-lumi" \
+		--label "org.opencontainers.image.source=https://github.com/BioDT/uc-pollinators-container" \
 		--label "org.opencontainers.image.description=BEEHAVE environment with NetLogo ${NETLOGO_VERSION}, OpenJDK ${JAVA_VERSION}, R ${R_VERSION}" \
 		--build-arg NETLOGO_FILE=$(word 2, $^) \
 		--build-arg NETLOGO_VERSION=${NETLOGO_VERSION} \
