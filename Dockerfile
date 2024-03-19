@@ -123,6 +123,10 @@ ADD $NETLOGO_FILE /
 # Conda
 COPY --from=conda /conda/env/ /conda/env/
 
+# HyperQueue
+ARG HQ_FILE
+ADD $HQ_FILE /conda/env/bin/
+
 ENV JAVA_HOME=/usr/lib64/jvm/java-$JAVA_VERSION-openjdk-$JAVA_VERSION \
     NETLOGO_HOME="/NetLogo $NETLOGO_VERSION" \
     NETLOGO_VERSION=$NETLOGO_VERSION \
