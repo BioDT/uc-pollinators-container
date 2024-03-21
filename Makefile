@@ -8,9 +8,7 @@ R_VERSION=4.3.2
 
 
 build: Dockerfile NetLogo-${NETLOGO_VERSION}-64.tgz hq-${HQ_VERSION}-linux-x64.tar.gz
-	docker buildx \
-	  build
-	  --platform linux/amd64
+	docker buildx build --platform linux/amd64 \
 		--label "org.opencontainers.image.source=https://github.com/BioDT/uc-pollinators-container" \
 		--label "org.opencontainers.image.description=BEEHAVE environment with NetLogo ${NETLOGO_VERSION}, OpenJDK ${JAVA_VERSION}, R ${R_VERSION}" \
 		--build-arg NETLOGO_FILE=$(word 2, $^) \
