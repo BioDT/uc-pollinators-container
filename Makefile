@@ -1,6 +1,6 @@
 IMAGE_ROOT?=ghcr.io/biodt
 IMAGE=beehave
-IMAGE_VERSION=0.3.5
+IMAGE_VERSION=0.3.6
 NETLOGO_VERSION=6.3.0
 HQ_VERSION=v0.16.0
 JAVA_VERSION=17
@@ -8,7 +8,9 @@ R_VERSION=4.3.2
 
 
 build: Dockerfile NetLogo-${NETLOGO_VERSION}-64.tgz hq-${HQ_VERSION}-linux-x64.tar.gz
-	docker build \
+	docker buildx \
+	  build
+	  --platform linux/amd64
 		--label "org.opencontainers.image.source=https://github.com/BioDT/uc-pollinators-container" \
 		--label "org.opencontainers.image.description=BEEHAVE environment with NetLogo ${NETLOGO_VERSION}, OpenJDK ${JAVA_VERSION}, R ${R_VERSION}" \
 		--build-arg NETLOGO_FILE=$(word 2, $^) \

@@ -80,6 +80,7 @@ RUN . /conda/etc/profile.d/conda.sh && \
         r-nnet \
         r-quantreg \
         r-locfit \
+        r-optparse \
         && \
     /conda/bin/conda clean -afy
 
